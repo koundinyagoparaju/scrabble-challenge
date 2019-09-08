@@ -47,7 +47,10 @@ public class Scorer {
         Map<String, Integer> scoresOfRowOrColumn = new HashMap<>();
         Map<String, Integer> contiguousSquaresCountForPlayer = new HashMap<>();
         for (Square square : rowOrColumn) {
-            square.getPlayersUsingThisSquare().forEach(player -> contiguousSquaresCountForPlayer.compute(player, (key, value) -> value == null ? 1 : value + 1));
+            square.getPlayersUsingThisSquare().forEach(player -> contiguousSquaresCountForPlayer.compute(
+                            player,
+                            (key, value) -> value == null ? 1 : value + 1)
+            );
             contiguousSquaresCountForPlayer.forEach((player, contiguousTilesCount) -> {
                 if (contiguousTilesCount > 1) {
                     scoresOfRowOrColumn.compute(player, (key, value) ->

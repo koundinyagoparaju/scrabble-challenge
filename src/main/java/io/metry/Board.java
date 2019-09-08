@@ -18,6 +18,7 @@ public class Board {
     }
 
     public void placeTile(Tile tile, int x, int y) {
+        if(x >= BOARD_LENGTH || y >= BOARD_LENGTH) throw new IllegalArgumentException("X, Y coordinates must not be greater than board length");
         squares[x][y].setTile(tile);
     }
 }
