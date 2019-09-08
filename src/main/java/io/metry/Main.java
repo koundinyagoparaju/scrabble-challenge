@@ -13,7 +13,7 @@ public class Main {
             throw new IllegalArgumentException("Board and letters file paths need to provided as arguments");
         Board board = buildBoard(args[0], args[1]);
         System.out.println(new Scorer(board).calculateScores());
-        System.out.println(new Scorer(board).calculateWinner());
+        System.out.println(new Scorer(board).calculateWinner().orElse("No winner"));
     }
 
     //I have to parse through the json nodes because the input looks a little bit non-standard. It could have been a list of objects.

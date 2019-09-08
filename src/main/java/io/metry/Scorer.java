@@ -1,8 +1,8 @@
 package io.metry;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.stream.Collectors;
 
 public class Scorer {
     private Board board;
@@ -11,17 +11,17 @@ public class Scorer {
         this.board = board;
     }
 
-    public String calculateWinner() {
-        int maxScore = Integer.MIN_VALUE;
+    public Optional<String> calculateWinner() {
+        int maxScore = 0;
         String winner = null;
         for (Map.Entry<String, Integer> scoreOfPlayer :
                 calculateScores().entrySet()) {
-            if (scoreOfPlayer.getValue() >= maxScore) {
+            if (scoreOfPlayer.getValue() > maxScore) {
                 winner = scoreOfPlayer.getKey();
                 maxScore = scoreOfPlayer.getValue();
             }
         }
-        return winner;
+        return Optional.ofNullable(winner);
     }
 
     public Map<String, Integer> calculateScores() {
@@ -31,7 +31,7 @@ public class Scorer {
             mergeMaps(calculateScores(board.getSquares()[i]), scores);
             mergeMaps(calculateScores(Arrays.stream(board.getSquares()).map(row -> row[index]).toArray(Square[]::new)), scores);
         }
-        return scores;
+        return board.getAllPlayers().stream().map(player -> new SimpleEntry<String, Integer>(player, scores.getOrDefault(player, 0))).collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue));
     }
 
 

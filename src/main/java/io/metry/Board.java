@@ -2,6 +2,9 @@ package io.metry;
 
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Data
 public class Board {
@@ -20,5 +23,15 @@ public class Board {
     public void placeTile(Tile tile, int x, int y) {
         if(x >= BOARD_LENGTH || y >= BOARD_LENGTH) throw new IllegalArgumentException("X, Y coordinates must not be greater than board length");
         squares[x][y].setTile(tile);
+    }
+
+    public Set<String> getAllPlayers() {
+        Set<String> players = new HashSet<>();
+        for (int i = 0; i < BOARD_LENGTH; i++) {
+            for (int j = 0; j < BOARD_LENGTH; j++) {
+                players.addAll(squares[i][j].getPlayersUsingThisSquare());
+            }
+        }
+        return players;
     }
 }
