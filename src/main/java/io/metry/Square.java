@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Square {
+class Square {
     private Tile tile;
 
     private boolean isTilePlaced() {

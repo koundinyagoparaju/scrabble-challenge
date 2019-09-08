@@ -4,14 +4,14 @@ import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.stream.Collectors;
 
-public class Scorer {
+class Scorer {
     private Board board;
 
-    public Scorer(Board board) {
+    Scorer(Board board) {
         this.board = board;
     }
 
-    public Optional<String> calculateWinner() {
+    Optional<String> calculateWinner() {
         int maxScore = 0;
         String winner = null;
         for (Map.Entry<String, Integer> scoreOfPlayer :
@@ -24,7 +24,7 @@ public class Scorer {
         return Optional.ofNullable(winner);
     }
 
-    public Map<String, Integer> calculateScores() {
+    Map<String, Integer> calculateScores() {
         Map<String, Integer> scores = new HashMap<>();
         for (int i = 0; i < Board.BOARD_LENGTH; i++) {
             int index = i;
