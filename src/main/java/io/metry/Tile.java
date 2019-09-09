@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Data
 @AllArgsConstructor
-public class Tile {
+class Tile {
     private Character letter;
     private Integer points;
     private Set<String> usedBy;

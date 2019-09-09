@@ -31,7 +31,9 @@ class Scorer {
             mergeMaps(calculateScores(board.getSquares()[i]), scores);
             mergeMaps(calculateScores(Arrays.stream(board.getSquares()).map(row -> row[index]).toArray(Square[]::new)), scores);
         }
-        return board.getAllPlayers().stream().map(player -> new SimpleEntry<String, Integer>(player, scores.getOrDefault(player, 0))).collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue));
+        return board.getAllPlayers().stream()
+                .map(player -> new SimpleEntry<>(player, scores.getOrDefault(player, 0)))
+                .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue));
     }
 
 
@@ -48,8 +50,8 @@ class Scorer {
         Map<String, Integer> contiguousSquaresCountForPlayer = new HashMap<>();
         for (Square square : rowOrColumn) {
             square.getPlayersUsingThisSquare().forEach(player -> contiguousSquaresCountForPlayer.compute(
-                            player,
-                            (key, value) -> value == null ? 1 : value + 1)
+                    player,
+                    (key, value) -> value == null ? 1 : value + 1)
             );
             contiguousSquaresCountForPlayer.forEach((player, contiguousTilesCount) -> {
                 if (contiguousTilesCount > 1) {
